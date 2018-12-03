@@ -1,0 +1,5 @@
+# Ignore automatically generated stuff and the output
+out/*
+
+# Ignore VIM swap files
+*.swp
