@@ -15,8 +15,12 @@ slides: out/slides.pdf
 # Since pdflatex creates the output from the main input
 # (e.g., slides.tex -> slides.pdf), replace .pdf in the
 # output by .tex (also replaces the directory).
+#
+# As dumb as this seems, the toc only appears if pdflatex
+# is run twice.
 out/slides.pdf: $(call rwildcard, slides/, *.tex) | mkdir__out__dir
-	pdflatex -output-directory=out $(@:out/%.pdf=slides/%.tex)
+	pdflatex -halt-on-error -output-directory=out $(@:out/%.pdf=slides/%.tex)
+	pdflatex -halt-on-error -output-directory=out $(@:out/%.pdf=slides/%.tex)
 
 # Automatically creates a directory.
 #
@@ -24,3 +28,6 @@ out/slides.pdf: $(call rwildcard, slides/, *.tex) | mkdir__out__dir
 # substitution command.
 mkdir__%__dir:
 	mkdir -p $(@:mkdir__%__dir=%)
+
+clean:
+	rm -rf out/
