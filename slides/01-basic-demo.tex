@@ -1,0 +1,41 @@
+\section{The basics of building}
+
+\subsection{Simple program}
+\begin{frame}[fragile]
+\frametitle{\secname: \small\subsecname\normalsize}
+\begin{columns}
+
+% Left side
+\column{0.4\textwidth}
+\onslide<1->{Let's say you have a simple program and you want
+to compile it...} \\~\\
+
+\onslide<3->{\texttt{gcc dummy\_main.c -o dummy\_main}} \\~\\
+
+\onslide<3->{Pretty simple, right?}
+
+% Right side
+\column<2->{0.6\textwidth}
+\small
+\begin{lstlisting}[language=C]
+// dummy_main.c
+int
+main(int argc, char *argv[])
+{
+    return 0;
+}
+\end{lstlisting}
+\normalsize
+
+\end{columns}
+\end{frame}
+
+\subsection{Slower demo}
+\begin{frame}{\secname: \small\subsecname\normalsize}
+
+But let's say we have a bigger project...
+
+% Add demo with a big lookup table in a file
+% and the main in another file.
+
+\end{frame}
