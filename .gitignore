@@ -3,3 +3,7 @@ out/*
 
 # Ignore VIM swap files
 *.swp
+
+# Ignore demo applications
+*.o
+demo01
