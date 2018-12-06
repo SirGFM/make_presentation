@@ -1,0 +1,102 @@
+\section{What's GNU Make}
+
+\begin{frame}{\secname}
+    \begin{itemize}
+        \item Tool that controls generation of "artifacts" from resources
+        % TODO Further this, as there may be issues
+        \item Keeps track of what's been changed, minimizing build time
+        \item Automatically handles building well known "artifacts"
+        \item Allows creating new rules for building unknown artifacts
+    \end{itemize}
+\end{frame}
+
+\subsection{Syntax overview}
+\begin{frame}[fragile]
+    \frametitle{\secname: \small\subsecname\normalsize}
+
+    The following is a valid Makefile for building main from main.c: \\~\\
+
+    \begin{lstlisting}[language=make]
+main: main.c
+    gcc -o main main.c
+    \end{lstlisting}
+
+\end{frame}
+
+\begin{frame}[fragile]
+    \frametitle{\secname: \small\subsecname\normalsize}
+
+    Basically, Make has the following syntax*: \\~\\
+
+    \begin{lstlisting}[language=make]
+# NOTE: These must be indented by tabs!
+target: prereq1 prereq2 ... prereqN
+    <build-command>
+    \end{lstlisting}
+
+    \small * Obviously, this ignores a lot of features
+\end{frame}
+
+\subsection{A simple Makefile (demo01-2)}
+\begin{frame}[fragile]
+    \frametitle{\secname: \small\subsecname\normalsize}
+
+    \begin{lstlisting}[language=make]
+demo01-2: demo01-2/main.o demo01-2/data.o
+    gcc -o demo01-2 demo01-2/main.o \
+        demo01-2/data.o
+
+demo01-2/main.o: demo01-2/main.c
+    gcc -o demo01-2/main.o -c demo01-2/main.c
+
+demo01-2/data.o: demo01-2/data.c
+    gcc -o demo01-2/data.o -c demo01-2/data.c
+    \end{lstlisting}
+\end{frame}
+
+\begin{frame}{\secname: \small\subsecname\normalsize}
+    Let's go live!
+
+    % This is pretty much the previous example all over again
+\end{frame}
+
+\subsection{Keeping it simple}
+\begin{frame}{\secname: \small\subsecname\normalsize}
+    \begin{itemize}
+        \item Make was primarily written to build programs
+        \item Any C program builds pretty similarly \\~\\ \pause
+        \item Make already has some built-in rules
+    \end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]
+    \frametitle{\secname: \small\subsecname (part 1)\normalsize}
+
+    Make already knows how to build a .o from a .c: \\~\\
+
+    \begin{lstlisting}[language=make]
+demo01-2: demo01-2/main.o demo01-2/data.o
+
+demo01-2/main.o: demo01-2/main.c
+
+demo01-2/data.o: demo01-2/data.c
+    \end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]
+    \frametitle{\secname: \small\subsecname (part 2)\normalsize}
+
+    More than that; Make knows how to find some dependecies (e.g., that a .o may be built from its .c): \\~\\
+
+    \begin{lstlisting}[language=make]
+demo01-2: demo01-2/main.o demo01-2/data.o
+    \end{lstlisting}
+\end{frame}
+
+\begin{frame}{\secname: \small\subsecname\normalsize}
+    Question: How long is the smallest Makefile? \\~\\ \pause
+
+    Let's write it live! (demo02)
+
+    % make demo02_src/main
+\end{frame}
