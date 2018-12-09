@@ -97,10 +97,32 @@ demo01-3: demo01-3/main.o demo01-2/data.o
     \end{lstlisting}
 \end{frame}
 
+% As much as I find this example funny, it doesn't really seem
+% helpful... D:
+%
+%\begin{frame}{\secname: \small\subsecname\normalsize}
+%    Question: How long is the smallest Makefile? \\~\\ \pause
+%
+%    Let's write it live! (demo02)
+%
+%    % make demo02_src/main
+%\end{frame}
+
+\subsection{Keeping it organized}
 \begin{frame}{\secname: \small\subsecname\normalsize}
-    Question: How long is the smallest Makefile? \\~\\ \pause
+    For more complex programs, you may set some predefined
+    variables:
 
-    Let's write it live! (demo02)
-
-    % make demo02_src/main
+    \begin{itemize}
+        \item \texttt{CC}: The default compiler for C files
+        \begin{itemize}
+            \item Use \texttt{CXX} for C++
+        \end{itemize}
+        \item \texttt{CFLAGS}: variables supplied when building
+        \begin{itemize}
+            \item Use \texttt{CXXFLAGS} for C++
+        \end{itemize}
+        \item \texttt{LDFLAGS}: Path to custom libraries
+        \item \texttt{LDLIBS}: Libraries required by the program
+    \end{itemize}
 \end{frame}
