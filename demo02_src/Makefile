@@ -1,6 +1,6 @@
-CFLAGS := -I demo02_src/include
-LDFLAGS := -L demo02_src
-LDLIBS := -lcrypto -lclamp
+CFLAGS := $(CFLAGS) -I demo02_src/include
+LDFLAGS := $(LDFLAGS) -L demo02_src
+LDLIBS := $(LDLIBS) -lcrypto -lclamp
 
 all: demo02_src/main demo02_src/libclamp.so
 

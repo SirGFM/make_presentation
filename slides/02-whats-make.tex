@@ -135,3 +135,19 @@ demo01-3_src/main: demo01-3_src/main.o demo01-3_src/data.o
 \begin{frame}{\secname: \small\subsecname\normalsize}
     Example: demo02
 \end{frame}
+
+\begin{frame}{\secname: \small\subsecname\normalsize}
+    \begin{alertblock}{Attention!}
+        Use these predefined variables (or similars) whenever possible!
+    \end{alertblock}
+
+    \begin{itemize}
+        \item Cross-compiling to another architecture may be achieved
+        by "simply" appending \texttt{-m<arch>} and
+        \texttt{--sysroot=<...>} to \texttt{CFLAGS} (or \texttt{CC})
+
+        \item The entire tool-chain may be overriden by setting
+        \texttt{CC}, \texttt{AR} etc (e.g., using MinGW to
+        cross-compile to Windows)
+    \end{itemize}
+\end{frame}
