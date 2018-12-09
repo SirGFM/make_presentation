@@ -26,31 +26,33 @@ main: main.c
 \begin{frame}[fragile]
     \frametitle{\secname: \small\subsecname\normalsize}
 
-    Basically, Make has the following syntax*: \\~\\
+    Basically, Make has the following syntax: \\~\\
 
     \begin{lstlisting}[language=make]
 # NOTE: These must be indented by tabs!
 target: prereq1 prereq2 ... prereqN
     <build-command>
     \end{lstlisting}
-
-    \small * Obviously, this ignores a lot of features
 \end{frame}
 
 \subsection{A simple Makefile (demo01-2)}
 \begin{frame}[fragile]
     \frametitle{\secname: \small\subsecname\normalsize}
 
+    If the previous example were written as a Makefile, it could look like the following:
+
     \begin{lstlisting}[language=make]
-demo01-2: demo01-2/main.o demo01-2/data.o
-    gcc -o demo01-2 demo01-2/main.o \
-        demo01-2/data.o
+demo01-2: demo01-2_src/main.o demo01-2_src/data.o
+    gcc -o demo01-2 demo01-2_src/main.o \
+        demo01-2_src/data.o
 
-demo01-2/main.o: demo01-2/main.c
-    gcc -o demo01-2/main.o -c demo01-2/main.c
+demo01-2_src/main.o: demo01_src/main.c
+    gcc -o demo01-2_src/main.o \
+        -c demo01_src/main.c
 
-demo01-2/data.o: demo01-2/data.c
-    gcc -o demo01-2/data.o -c demo01-2/data.c
+demo01-2_src/data.o: demo01_src/data.c
+    gcc -o demo01-2_src/data.o \
+        -c demo01_src/data.c
     \end{lstlisting}
 \end{frame}
 
@@ -64,32 +66,34 @@ demo01-2/data.o: demo01-2/data.c
 \begin{frame}{\secname: \small\subsecname\normalsize}
     \begin{itemize}
         \item Make was primarily written to build programs
-        \item Any C program builds pretty similarly \\~\\ \pause
-        \item Make already has some built-in rules
+        \item Any C program builds pretty similarly
+        \item (the same is valid for other languages as well!)
     \end{itemize}
 \end{frame}
 
 \begin{frame}[fragile]
     \frametitle{\secname: \small\subsecname (part 1)\normalsize}
 
-    Make already knows how to build a .o from a .c: \\~\\
+    For example, Make already knows how to build a .o from a .c: \\~\\
 
     \begin{lstlisting}[language=make]
-demo01-2: demo01-2/main.o demo01-2/data.o
+demo01-2: demo01-2_src/main.o demo01-2_src/data.o
+     gcc -p demo01-2 demo01-2_src/main.o \
+        demo01-2_src/data.o
 
-demo01-2/main.o: demo01-2/main.c
+demo01-2_src/main.o: demo01_src/main.c
 
-demo01-2/data.o: demo01-2/data.c
+demo01-2_src/data.o: demo01_src/data.c
     \end{lstlisting}
 \end{frame}
 
 \begin{frame}[fragile]
     \frametitle{\secname: \small\subsecname (part 2)\normalsize}
 
-    More than that; Make knows how to find some dependecies (e.g., that a .o may be built from its .c): \\~\\
+    However, Make does not know how to build a binary from multiple sources:
 
     \begin{lstlisting}[language=make]
-demo01-2: demo01-2/main.o demo01-2/data.o
+demo01-3: demo01-3/main.o demo01-2/data.o
     \end{lstlisting}
 \end{frame}
 
