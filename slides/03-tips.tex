@@ -1,0 +1,23 @@
+\section{GNU Make tips}
+
+\subsection{Variable attribution}
+\begin{frame}{\secname: \small\subsecname\normalsize}
+    \begin{block}{Variable evaluation!}
+        Diffence between \texttt{VAR := value} and \texttt{VAR = value}
+    \end{block}
+
+    \begin{itemize}
+        \item \texttt{VAR := value} uses immediate evaluation
+        \begin{itemize}
+            \item \texttt{VAR := \$(VAR) some-value} is OK
+            \item \texttt{VAR += some-value} is also OK (but adds a space)
+        \end{itemize}
+        \item \texttt{VAR = value} uses lazy evaluation
+        \begin{itemize}
+            \item \texttt{VAR = \$(VAR) some-value} is \textbf{NOT} OK
+            \item \texttt{VAR += some-value} is OK
+        \end{itemize}
+    \end{itemize}
+
+    See demo03_src!
+\end{frame}
