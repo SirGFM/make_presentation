@@ -16,9 +16,7 @@
 \end{frame}
 
 \begin{frame}{\secname: \small\subsecname\normalsize}
-    \begin{block}{Variable evaluation!}
-        Diffence between \texttt{VAR := value} and \texttt{VAR = value}
-    \end{block}
+    The diffence between \texttt{VAR := value} and \texttt{VAR = value}:
 
     \begin{itemize}
         \item \texttt{VAR := value} uses immediate evaluation
@@ -116,7 +114,8 @@ endif
 obj/%.o: src/%.c
     $(CC) $(CFLAGS) -c $< -o $@
 
-# Create the dependency files from their source
+# Create the dependency files from
+# their source
 obj/%.d: %.c
     gcc $(CFLAGS) -MM -MG \
         -MT "$@ $(@:%.d=%.o)" $< > $@

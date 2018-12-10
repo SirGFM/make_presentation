@@ -41,7 +41,7 @@ target: prereq1 prereq2 ... prereqN
 
     If the previous example were written as a Makefile, it could look like the following:
 
-    \begin{lstlisting}[language=make]
+    \small \begin{lstlisting}[language=make]
 demo01-2: demo01-2_src/main.o demo01-2_src/data.o
     gcc -o demo01-2 demo01-2_src/main.o \
         demo01-2_src/data.o
@@ -53,7 +53,7 @@ demo01-2_src/main.o: demo01_src/main.c
 demo01-2_src/data.o: demo01_src/data.c
     gcc -o demo01-2_src/data.o \
         -c demo01_src/data.c
-    \end{lstlisting}
+    \end{lstlisting} \normalsize
 \end{frame}
 
 \begin{frame}{\secname: \small\subsecname\normalsize}
@@ -76,7 +76,7 @@ demo01-2_src/data.o: demo01_src/data.c
 
     For example, Make already knows how to build a .o from a .c: \\~\\
 
-    \begin{lstlisting}[language=make]
+    \small \begin{lstlisting}[language=make]
 demo01-2: demo01-2_src/main.o demo01-2_src/data.o
      gcc -p demo01-2 demo01-2_src/main.o \
         demo01-2_src/data.o
@@ -84,7 +84,7 @@ demo01-2: demo01-2_src/main.o demo01-2_src/data.o
 demo01-2_src/main.o: demo01_src/main.c
 
 demo01-2_src/data.o: demo01_src/data.c
-    \end{lstlisting}
+    \end{lstlisting} \normalsize
 \end{frame}
 
 \begin{frame}[fragile]
@@ -92,14 +92,14 @@ demo01-2_src/data.o: demo01_src/data.c
 
     However, Make does not know how to build a binary from multiple sources:
 
-    \begin{lstlisting}[language=make]
+    \small \begin{lstlisting}[language=make]
 demo01-3: demo01-3_src/main.o demo01-3_src/data.o
-    \end{lstlisting}
+    \end{lstlisting} \normalsize
 
     Unless the target shares the name of one of its targets:
-    \begin{lstlisting}[language=make]
-demo01-3_src/main: demo01-3_src/main.o demo01-3_src/data.o
-    \end{lstlisting}
+    \small \begin{lstlisting}[language=make]
+demo01-3_src/main: demo01-3_src/main.o ...
+    \end{lstlisting} \normalsize
 \end{frame}
 
 % As much as I find this example funny, it doesn't really seem
