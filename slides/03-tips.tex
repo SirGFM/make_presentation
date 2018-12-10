@@ -36,3 +36,42 @@
     See demo03\_src!
 
 \end{frame}
+
+\subsection{Variable substitution}
+\begin{frame}[fragile]
+    \frametitle{\secname: \small\subsecname\normalsize}
+
+    Variable substitution may happen when accessing a variable: \\~\\
+    \begin{lstlisting}[language=make]
+SOURCES := main.c data.c lib.c
+OBJS := $(SOURCES:.c=.o)
+    \end{lstlisting}
+
+    and on rules themselves: \\~\\
+    \begin{lstlisting}[language=make]
+%.o: %.c
+    \end{lstlisting}
+
+\end{frame}
+
+\subsection{Creating directories for targets}
+\begin{frame}[fragile]
+    \frametitle{\secname: \small\subsecname\normalsize}
+
+    By defining every rule and using variable substitution, it's possible
+    to generate every output directory: \\~\\
+
+    \begin{lstlisting}[language=make]
+OBJS := obj/main.o obj/subdir/helper.o
+
+bin/main: $(OBJS) | bin/.mkdir
+
+obj/%.o: src/%.c | obj/%.mkdir
+
+# $(@D) retrieves the directory of the current target
+%.mkdir:
+    mkdir -p $(@D)
+    \end{lstlisting}
+
+    See demo04\_src!
+\end{frame}

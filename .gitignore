@@ -7,7 +7,10 @@ out/*
 # Ignore demo applications
 *.o
 *.so
+*.mkdir
 demo01
 demo01-2
 demo02_src/main
 demo01-3_src/main
+demo04_src/obj
+demo04_src/bin
