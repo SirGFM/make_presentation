@@ -102,6 +102,25 @@ endif
     See demo05\_src!
 \end{frame}
 
+\subsection{Automatic source list}
+\begin{frame}[fragile]
+    \frametitle{\secname: \small\subsecname\normalsize}
+
+    This was taken from Stack Overflow:
+
+    \begin{lstlisting}[language=make]
+# To find every .c file in src:
+#   FILES := $(call rwildcard, src/, *.c)
+# To find all the .c and .h files in src:
+#   FILES := $(call rwildcard, src/, *.c *.h)
+rwildcard=$(foreach d,$(wildcard $1*), \
+    $(call rwildcard,$d/,$2) \
+    $(filter $(subst *,%,$2),$d))
+    \end{lstlisting}
+
+    See demo06\_src!
+\end{frame}
+
 \subsection{Properly tracking header files}
 \begin{frame}[fragile]
     \frametitle{\secname: \small\subsecname\normalsize}

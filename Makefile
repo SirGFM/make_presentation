@@ -2,7 +2,7 @@
 # Recursive wildcard from https://stackoverflow.com/a/18258352
 #
 # To find every .c file in src:
-#   FILES := $(call rwildcard, , *.c)
+#   FILES := $(call rwildcard, ,src/ *.c)
 # To find all the .c and .h files in src:
 #   FILES := $(call rwildcard, src/, *.c *.h)
 rwildcard=$(foreach d,$(wildcard $1*),$(call rwildcard,$d/,$2) $(filter $(subst *,%,$2),$d))
