@@ -11,9 +11,22 @@
 \institute{LKCamp}
 \date{2018}
 
+\AtBeginSection[]
+{
+    \begin{frame}
+        \frametitle{Table of Contents}
+        \tableofcontents[currentsection,subsectionstyle=hide]
+    \end{frame}
+}
+
 \begin{document}
 
 \frame{\titlepage}
+
+\begin{frame}
+    \frametitle{Table of Contents}
+    \tableofcontents[subsectionstyle=hide]
+\end{frame}
 
 \input{slides/01-basic-demo.tex}
 \input{slides/02-whats-make.tex}
