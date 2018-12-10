@@ -63,15 +63,43 @@ OBJS := $(SOURCES:.c=.o)
 
     \begin{lstlisting}[language=make]
 OBJS := obj/main.o obj/subdir/helper.o
-
 bin/main: $(OBJS) | bin/.mkdir
-
 obj/%.o: src/%.c | obj/%.mkdir
 
-# $(@D) retrieves the directory of the current target
+# $(@D) retrieves the directory of
+# the current target
 %.mkdir:
     mkdir -p $(@D)
     \end{lstlisting}
 
     See demo04\_src!
+\end{frame}
+
+\subsection{Conditionals and including}
+\begin{frame}[fragile]
+    \frametitle{\secname: \small\subsecname\normalsize}
+
+    Make can execute string comparison: \\~\\
+
+    \begin{lstlisting}[language=make]
+ifeq ($(DEBUG), )
+    # Debug is empty
+    CFLAGS := $(CFLAGS) -O2
+else
+    # Debug isn't empty
+    CFLAGS := $(CFLAGS) -O0 -g -DDEBUG
+endif
+    \end{lstlisting}
+\end{frame}
+
+\begin{frame}{\secname: \small\subsecname\normalsize}
+    A few other features can lead to easier cross-compiling:
+
+    \begin{itemize}
+        \item \texttt{MAKECMDGOALS}: Automatically set variable with the currently executing goal (i.e., a target)
+        \item \texttt{include <another-makefile>}: Starts parsing a different makefile into the current one
+        \item \texttt{\$(findstring substr, list)}: Try to find \texttt{substr} in \texttt{list}
+    \end{itemize}
+
+    See demo05\_src!
 \end{frame}
