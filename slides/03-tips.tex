@@ -103,3 +103,23 @@ endif
 
     See demo05\_src!
 \end{frame}
+
+\subsection{Properly tracking header files}
+\begin{frame}[fragile]
+    \frametitle{\secname: \small\subsecname\normalsize}
+
+    \begin{lstlisting}[language=make]
+# Include every rule from a depency (properly
+# tracks header dependency)
+-include $(OBJS:%.o=%.d)
+
+obj/%.o: src/%.c
+    $(CC) $(CFLAGS) -c $< -o $@
+
+# Create the dependency files from their source
+obj/%.d: %.c
+    gcc $(CFLAGS) -MM -MG \
+        -MT "$@ $(@:%.d=%.o)" $< > $@
+    \end{lstlisting}
+
+\end{frame}
