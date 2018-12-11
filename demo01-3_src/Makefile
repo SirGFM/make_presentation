@@ -1,6 +1,9 @@
 # This does not work, unless there's an explicit rule
-demo01-3: demo01-3_src/main.o demo01-3_src/data.o
+demo01-3: main.o data.o
 #	gcc -o $@ $^
 
 # However, this works normally
-demo01-3_src/main: demo01-3_src/main.o demo01-3_src/data.o
+main: main.o data.o
+
+clean:
+	rm -f *.o demo01-3 main

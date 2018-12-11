@@ -90,12 +90,12 @@ demo01-2_src/data.o: demo01_src/data.c
     However, Make does not know how to build a binary from multiple sources:
 
     \small \begin{lstlisting}[language=make]
-demo01-3: demo01-3_src/main.o demo01-3_src/data.o
+demo01-3: main.o data.o
     \end{lstlisting} \normalsize
 
     Unless the target shares the name of one of its targets:
     \small \begin{lstlisting}[language=make]
-demo01-3_src/main: demo01-3_src/main.o ...
+main: main.o data.o
     \end{lstlisting} \normalsize
 \end{frame}
 
