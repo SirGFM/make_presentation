@@ -1,6 +1,6 @@
 #!/bin/bash
 
-for f in `ls demo01_src/*.c`; do
+for f in `ls ./*.c`; do
     # Get the name of the output file
     out=${f/.c/.o}
 
@@ -18,4 +18,4 @@ for f in `ls demo01_src/*.c`; do
     fi
 done
 
-gcc -o demo01 demo01_src/*.o
+gcc -o demo01 ./*.o
