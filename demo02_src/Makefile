@@ -1,10 +1,13 @@
-CFLAGS := $(CFLAGS) -I demo02_src/include
-LDFLAGS := $(LDFLAGS) -L demo02_src
+CFLAGS := $(CFLAGS) -I include
+LDFLAGS := $(LDFLAGS) -L ./
 LDLIBS := $(LDLIBS) -lcrypto -lclamp
 
-all: demo02_src/main demo02_src/libclamp.so
+all: main libclamp.so
 
-demo02_src/main: demo02_src/main.o | demo02_src/libclamp.so
+main: main.o | libclamp.so
 
-demo02_src/libclamp.so: demo02_src/libclamp.o
+libclamp.so: libclamp.o
 	$(CC) -shared $^ -o $@
+
+clean:
+	rm -f *.o *.so main
