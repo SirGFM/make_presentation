@@ -42,17 +42,14 @@ target: prereq1 prereq2 ... prereqN
     If the previous example were written as a Makefile, it could look like the following:
 
     \small \begin{lstlisting}[language=make]
-demo01-2: demo01-2_src/main.o demo01-2_src/data.o
-    gcc -o demo01-2 demo01-2_src/main.o \
-        demo01-2_src/data.o
+demo01-2: main.o data.o
+    gcc -o demo01-2 main.o data.o
 
-demo01-2_src/main.o: demo01_src/main.c
-    gcc -o demo01-2_src/main.o \
-        -c demo01_src/main.c
+main.o: main.c
+    gcc -o main.o -c main.c
 
-demo01-2_src/data.o: demo01_src/data.c
-    gcc -o demo01-2_src/data.o \
-        -c demo01_src/data.c
+data.o: data.c
+    gcc -o data.o -c data.c
     \end{lstlisting} \normalsize
 \end{frame}
 
