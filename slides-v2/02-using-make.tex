@@ -12,19 +12,19 @@
         \item \texttt{LDLIBS}: Libraries flags (e.g., \texttt{-Wl,-rpath}) or name (e.g., \texttt{-lcrypto}) to give to the linker.
     \end{itemize}
 
-    For a non-exhaustive, but more complete list, see:
+    For a non-exhaustive, but more complete list, see: \\~\\
 
-    https://www.gnu.org/software/make/manual/html_node/Implicit-Variables.html#Implicit-Variables
+    https://www.gnu.org/software/make/manual/html\_node/Implicit-Variables.html\#Implicit-Variables
 \end{frame}
 
 \begin{frame}{\secname}
     \begin{alertblock}{Attention!}
-        Use these predefined variables (or similars) whenever possible!
+        Use these predefined variables (or similars) whenever possible! \\~\\
     \end{alertblock}
 
     Cross-compiling to another architecture may be achieved
     by (almost) as little as appending \texttt{-m<arch>} and
-    \texttt{--sysroot=<...>} to \texttt{CFLAGS} (or \texttt{CC}).
+    \texttt{--sysroot=<...>} to \texttt{CFLAGS} (or \texttt{CC}). \\~\\
 
     Also, the entire tool-chain may be overriden by setting
     \texttt{CC}, \texttt{AR} etc (e.g., using MinGW to
@@ -32,40 +32,42 @@
 \end{frame}
 
 \defverbatim[colored]\makeTarget{
-    \begin{lstlisting}[basicstyle=\tiny, language=Makefile]
+    \begin{lstlisting}[basicstyle=\tiny, language=make]
 linux32: bin/linux32_release/my-program.app
 linux32_debug: bin/linux32_debug/my-program.app
 win32: bin/win32_release/my-program.app
 win32_debug: bin/win32_debug/my-program.app
 
-\%.app: \$(OBJS)
-	\$(CC) \$(CFLAGS) \$(LDFLAGS) -o \$@ \$(OBJS) \$(LDLIBS)
+%.app: $(OBJS)
+	$(CC) $(CFLAGS) $(LDFLAGS) -o $@ $(OBJS) $(LDLIBS)
     \end{lstlisting}
 }
 
 \begin{frame}{\secname}
-    Make accepts \textbf{phony} targets, i.e. targets without a matching artifact.
+    Make accepts \textbf{phony} targets, i.e. targets without a matching artifact. \\~\\
 
-    Those are useful for adding targets with more friendly, and generic, names:
+    Those are useful for adding targets with more friendly, and generic, names: \\~\\
 
     \makeTarget
 
 \end{frame}
 
 \defverbatim[colored]\makePhony{
-    \begin{lstlisting}[basicstyle=\tiny, language=Makefile]
+    \begin{lstlisting}[basicstyle=\tiny, language=make]
 .PHONY: all clean
 clean:
-	\$(RM) \$(OBJS) \$(TARGET)
+	$(RM) $(OBJS) $(TARGET)
     \end{lstlisting}
 }
 
 \begin{frame}{\secname}
-    If no rule is specified, Make tries to build the first target, which is usually the phony target \texttt{all}. Another common phony target is \texttt{clean}.
+    If no rule is specified, Make tries to build the first target (usually the phony target \texttt{all}). \\~\\
 
-    However, if a file were created with the name of any of the phony targets, those wouldn't be called anymore (since the file would be considered up to date).
+    Another common phony target is \texttt{clean}. \\~\\
 
-    To avoid that, the special target \texttt{.PHONY} may be used:
+    However, if a file were created with the name of any of the phony targets, those wouldn't be called anymore (since the file would be considered up to date). \\~\\
+
+    To avoid that, the special target \texttt{.PHONY} may be used: \\~\\
 
     \makePhony
 

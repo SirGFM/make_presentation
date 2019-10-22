@@ -1,0 +1,40 @@
+\documentclass{beamer}
+
+\usepackage[utf8]{inputenc}
+\usepackage{listings}
+\lstset{
+    frame=single
+}
+
+% TODO Check https://pt.overleaf.com/learn/latex/Beamer
+
+%Information to be included in the title page:
+\title{MAKEing it work}
+\author{Gabriel Francisco Mandaji}
+%\institute{LKCamp}
+\date{2019}
+
+%\AtBeginSection[]
+%{
+%    \begin{frame}
+%        \frametitle{Table of Contents}
+%        \tableofcontents[currentsection,subsectionstyle=hide]
+%    \end{frame}
+%}
+
+\begin{document}
+
+\frame{\titlepage}
+
+\begin{frame}
+    \frametitle{Table of Contents}
+    \tableofcontents[subsectionstyle=hide]
+\end{frame}
+
+\input{slides-v2/01-whats-make.tex}
+\input{slides-v2/02-using-make.tex}
+\input{slides-v2/03-tips-and-examples.tex}
+
+%\input{slides/0n-references.tex}
+
+\end{document}

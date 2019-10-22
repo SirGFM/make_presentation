@@ -10,20 +10,20 @@
         \item A target may have a custom building \textbf{rule} or use an \textbf{implicit rule}.
     \end{itemize}
 
-    Make comes in various flavors:
+    Make comes in various flavors: \\~\\
 
     GNU Make (gmake), BSD Make (bmake), Microsoft Program Maintenance Utility (NMAKE.EXE)
 \end{frame}
 
 \defverbatim[colored]\makeMain{
-    \begin{lstlisting}[basicstyle=\tiny, language=Makefile]
+    \begin{lstlisting}[basicstyle=\tiny, language=make]
 main: main.c
 	gcc -o main main.c
     \end{lstlisting}
 }
 
-\defverbatim[colored]\makeSyntax1{
-    \begin{lstlisting}[basicstyle=\tiny, language=Makefile]
+\defverbatim[colored]\makeSyntax{
+    \begin{lstlisting}[basicstyle=\tiny, language=make]
 target: prereq0 prereq1 prereq2 ... prereqN
 	<build-command-0>
 	<build-command-1>
@@ -34,7 +34,7 @@ target: prereq0 prereq1 prereq2 ... prereqN
 
 \section{Syntax overview}
 \begin{frame}{\secname}
-    The following is a valid Makefile for building main from main.c: \\~\\
+    The following is a valid make for building main from main.c: \\~\\
 
     \makeMain
 
@@ -42,19 +42,22 @@ target: prereq0 prereq1 prereq2 ... prereqN
 
     \makeSyntax
 
+    \begin{alertblock}{Attention!}
+        Commands must be indented with a single tab character.
+    \end{alertblock}
 \end{frame}
 
 \defverbatim[colored]\makeImplicit{
-    \begin{lstlisting}[basicstyle=\tiny, language=Makefile]
-\%.o: \%.c
-	gcc -c -o \$@ \$<
+    \begin{lstlisting}[basicstyle=\tiny, language=make]
+%.o: %.c
+	gcc -c -o $@ $<
     \end{lstlisting}
 }
 
 \defverbatim[colored]\makeImplicitCFile{
-    \begin{lstlisting}[basicstyle=\tiny, language=Makefile]
-\%.o: \%.c
-	\$(CC) -c \$(CFLAGS) \$(CPPFLAGS) -o \$@ \$<
+    \begin{lstlisting}[basicstyle=\tiny, language=make]
+%.o: %.c
+	$(CC) -c $(CFLAGS) $(CPPFLAGS) -o $@ $<
     \end{lstlisting}
 }
 
@@ -66,7 +69,7 @@ target: prereq0 prereq1 prereq2 ... prereqN
     \begin{itemize}
         \item main.o: main.c
         \item foo.o: foo.c
-        \item ...
+        \item etc
     \end{itemize}
 
     Since Make was written to build programs, it has a couple of built-in implicit rules. For example:
@@ -76,7 +79,7 @@ target: prereq0 prereq1 prereq2 ... prereqN
 \end{frame}
 
 \begin{frame}{\secname: \small\subsecname\normalsize}
-    (GNU) Make's implicit rules can be listed by running \texttt{make -p}.
+    (GNU) Make's implicit rules can be listed by running \texttt{make -p}. \\~\\
 
     Fun fact: because of these implicit rules, you can run \texttt{make main} in a directory with only a \texttt{main.c} and it will correctly compile and link the program.
 
