@@ -1,0 +1,83 @@
+\section{What's Make}
+
+\begin{frame}{\secname}
+    Make is a build tool that controls the generation of "artifacts" from resources
+
+    \begin{itemize}
+        \item Originally written by Stuart Feldman, to manage building programs;
+        \item Can actually be used to build anything;
+        \item Decides whether a given \textbf{target} must be updated based on the modification time of the file itself and of its \textbf{prerequisites};
+        \item A target may have a custom building \textbf{rule} or use an \textbf{implicit rule}.
+    \end{itemize}
+
+    Make comes in various flavors:
+
+    GNU Make (gmake), BSD Make (bmake), Microsoft Program Maintenance Utility (NMAKE.EXE)
+\end{frame}
+
+\defverbatim[colored]\makeMain{
+    \begin{lstlisting}[basicstyle=\tiny, language=Makefile]
+main: main.c
+	gcc -o main main.c
+    \end{lstlisting}
+}
+
+\defverbatim[colored]\makeSyntax1{
+    \begin{lstlisting}[basicstyle=\tiny, language=Makefile]
+target: prereq0 prereq1 prereq2 ... prereqN
+	<build-command-0>
+	<build-command-1>
+	...
+	<build-command-M>
+    \end{lstlisting}
+}
+
+\section{Syntax overview}
+\begin{frame}{\secname}
+    The following is a valid Makefile for building main from main.c: \\~\\
+
+    \makeMain
+
+    Which could be broken down as: \\~\\
+
+    \makeSyntax
+
+\end{frame}
+
+\defverbatim[colored]\makeImplicit{
+    \begin{lstlisting}[basicstyle=\tiny, language=Makefile]
+\%.o: \%.c
+	gcc -c -o \$@ \$<
+    \end{lstlisting}
+}
+
+\defverbatim[colored]\makeImplicitCFile{
+    \begin{lstlisting}[basicstyle=\tiny, language=Makefile]
+\%.o: \%.c
+	\$(CC) -c \$(CFLAGS) \$(CPPFLAGS) -o \$@ \$<
+    \end{lstlisting}
+}
+
+\begin{frame}{\secname: \small\subsecname\normalsize}
+    Rules can be defined implicitly, so they may be used for any number of targets. The following rule bellow matches:
+
+    \makeImplicit
+
+    \begin{itemize}
+        \item main.o: main.c
+        \item foo.o: foo.c
+        \item ...
+    \end{itemize}
+
+    Since Make was written to build programs, it has a couple of built-in implicit rules. For example:
+
+    \makeImplicitCFile
+
+\end{frame}
+
+\begin{frame}{\secname: \small\subsecname\normalsize}
+    (GNU) Make's implicit rules can be listed by running \texttt{make -p}.
+
+    Fun fact: because of these implicit rules, you can run \texttt{make main} in a directory with only a \texttt{main.c} and it will correctly compile and link the program.
+
+\end{frame}

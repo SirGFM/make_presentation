@@ -1,0 +1,83 @@
+\section{Using (GNU) Make}
+
+\begin{frame}{\secname}
+    Make defines a couple of variable that may be used to modify its built-in implicit rules:
+
+    \begin{itemize}
+        \item \texttt{CC}: Program for compiling C programs; default ‘cc’;
+        \item \texttt{CXX}: Program for compiling C++ programs; default ‘g++’;
+        \item \texttt{CFLAGS}: Extra flags to give to the C compiler;
+        \item \texttt{CXXFLAGS}: Extra flags to give to the C++ compiler;
+        \item \texttt{LDFLAGS}: Extra flags to give to the linker (e.g.: \texttt{-L /lib/path});
+        \item \texttt{LDLIBS}: Libraries flags (e.g., \texttt{-Wl,-rpath}) or name (e.g., \texttt{-lcrypto}) to give to the linker.
+    \end{itemize}
+
+    For a non-exhaustive, but more complete list, see:
+
+    https://www.gnu.org/software/make/manual/html_node/Implicit-Variables.html#Implicit-Variables
+\end{frame}
+
+\begin{frame}{\secname}
+    \begin{alertblock}{Attention!}
+        Use these predefined variables (or similars) whenever possible!
+    \end{alertblock}
+
+    Cross-compiling to another architecture may be achieved
+    by (almost) as little as appending \texttt{-m<arch>} and
+    \texttt{--sysroot=<...>} to \texttt{CFLAGS} (or \texttt{CC}).
+
+    Also, the entire tool-chain may be overriden by setting
+    \texttt{CC}, \texttt{AR} etc (e.g., using MinGW to
+    cross-compile to Windows).
+\end{frame}
+
+\defverbatim[colored]\makeTarget{
+    \begin{lstlisting}[basicstyle=\tiny, language=Makefile]
+linux32: bin/linux32_release/my-program.app
+linux32_debug: bin/linux32_debug/my-program.app
+win32: bin/win32_release/my-program.app
+win32_debug: bin/win32_debug/my-program.app
+
+\%.app: \$(OBJS)
+	\$(CC) \$(CFLAGS) \$(LDFLAGS) -o \$@ \$(OBJS) \$(LDLIBS)
+    \end{lstlisting}
+}
+
+\begin{frame}{\secname}
+    Make accepts \textbf{phony} targets, i.e. targets without a matching artifact.
+
+    Those are useful for adding targets with more friendly, and generic, names:
+
+    \makeTarget
+
+\end{frame}
+
+\defverbatim[colored]\makePhony{
+    \begin{lstlisting}[basicstyle=\tiny, language=Makefile]
+.PHONY: all clean
+clean:
+	\$(RM) \$(OBJS) \$(TARGET)
+    \end{lstlisting}
+}
+
+\begin{frame}{\secname}
+    If no rule is specified, Make tries to build the first target, which is usually the phony target \texttt{all}. Another common phony target is \texttt{clean}.
+
+    However, if a file were created with the name of any of the phony targets, those wouldn't be called anymore (since the file would be considered up to date).
+
+    To avoid that, the special target \texttt{.PHONY} may be used:
+
+    \makePhony
+
+\end{frame}
+
+\begin{frame}{\secname}
+    GNU Make has many more features, some of which will be examplified later:
+
+    \begin{itemize}
+        \item Conditionals;
+        \item Order-only targets;
+        \item Automatic variables (e.g., \texttt{\$@, \$<});
+        \item Transformation functions.
+    \end{itemize}
+\end{frame}

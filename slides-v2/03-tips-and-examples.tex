@@ -1,0 +1,144 @@
+\section{GNU Make tips}
+
+\defverbatim[colored]\makeVar{
+    \begin{lstlisting}[basicstyle=\tiny, language=Makefile]
+# Immediate evaluation
+VAR1 := some-value
+
+# Lazy evaluation
+VAR2 = some-other-value
+    \end{lstlisting}
+}
+
+\defverbatim[colored]\makeAppendVar{
+    \begin{lstlisting}[basicstyle=\tiny, language=Makefile]
+VAR1 := still-\$(VAR1) # OK - becomes "still-some-value"
+VAR1 += another-value # OK - becomes "still-some-value another-value" (note the space)
+
+VAR2 += yet-another-value # OK - becomes "another-value yet-another-value"
+VAR2 = \$(VAR2) dont # NOT OK!!
+    \end{lstlisting}
+}
+
+\subsection{Variable attribution}
+\begin{frame}{\secname: \small\subsecname\normalsize}
+    Attributing a value to a variable is as simples as doing:
+
+    \makeVar
+
+    And variables may be modified by using:
+
+    \makeAppendVar
+
+\end{frame}
+
+\defverbatim[colored]\makeObjsFromSrc{
+    \begin{lstlisting}[basicstyle=\tiny, language=Makefile]
+SRC := main.c foo.c
+# Assigns 'main.o foo.o' to OBJS
+OBJS := \$(SRC:\%.c=\%.o)
+    \end{lstlisting}
+}
+
+\defverbatim[colored]\makeDir{
+    \begin{lstlisting}[basicstyle=\tiny, language=Makefile]
+# Resolves to the implicit '\%.o: \%.c' rule
+obj/\%.o: src/\%.c | obj/\%.mkdir
+
+# From the previous example
+\%.app: \$(OBJS) | \%.mkdir
+
+# \$(@D) retrieves the directory of
+# the current target
+\%.mkdir:
+	mkdir -p \$(@D)
+    \end{lstlisting}
+}
+
+\subsection{Variable substitution (mkdir)}
+\begin{frame}{\secname: \small\subsecname\normalsize}
+    Variable substitution may happen when accessing a variable:
+
+    \makeObjsFromSrc
+
+    Using the \textbf{automatic variable} \texttt{\$(@D)} it's possible to automatically generate the directory for a given target:
+
+    \makeDir
+
+\end{frame}
+
+\defverbatim[colored]\makeAutoSrc{
+    \begin{lstlisting}[basicstyle=\tiny, language=Makefile]
+# To find every .c file in src:
+#   FILES := $(call rwildcard, src/, *.c)
+# To find all the .c and .h files in src:
+#   FILES := $(call rwildcard, src/, *.c *.h)
+rwildcard=$(foreach d,$(wildcard $1*), \
+    $(call rwildcard,$d/,$2) \
+    $(filter $(subst *,%,$2),$d))
+
+# For example
+SRC := $(call rwildcard, src, *.c)
+OBJS := $(SRC:%.c=%.o)
+    \end{lstlisting}
+}
+
+\subsection{Automatic source list}
+\begin{frame}{\secname: \small\subsecname\normalsize}
+
+    This was taken from Stack Overflow, and uses functions \texttt{foreach}, \texttt{call}, \texttt{filter} and \texttt{subst} to list files under a directory:
+
+    \makeAutoSrc
+\end{frame}
+
+% TODO -- continue from here
+
+\subsection{Conditionals and including}
+\begin{frame}[fragile]
+    \frametitle{\secname: \small\subsecname\normalsize}
+
+    Make can execute string comparison: \\~\\
+
+    \begin{lstlisting}[language=make]
+ifeq ($(DEBUG), )
+    # Debug is empty
+    CFLAGS := $(CFLAGS) -O2
+else
+    # Debug isn't empty
+    CFLAGS := $(CFLAGS) -O0 -g -DDEBUG
+endif
+    \end{lstlisting}
+\end{frame}
+
+\begin{frame}{\secname: \small\subsecname\normalsize}
+    A few other features can lead to easier cross-compiling:
+
+    \begin{itemize}
+        \item \texttt{MAKECMDGOALS}: Automatically set variable with the currently executing goal (i.e., a target)
+        \item \texttt{include <another-makefile>}: Starts parsing a different makefile into the current one
+        \item \texttt{\$(findstring substr, list)}: Try to find \texttt{substr} in \texttt{list}
+    \end{itemize}
+
+    See demo05\_src!
+\end{frame}
+
+\subsection{Properly tracking header files}
+\begin{frame}[fragile]
+    \frametitle{\secname: \small\subsecname\normalsize}
+
+    \begin{lstlisting}[language=make]
+# Include every rule from a depency (properly
+# tracks header dependency)
+-include $(OBJS:%.o=%.d)
+
+obj/%.o: src/%.c
+    $(CC) $(CFLAGS) -c $< -o $@
+
+# Create the dependency files from
+# their source
+obj/%.d: %.c
+    gcc $(CFLAGS) -MM -MG \
+        -MT "$@ $(@:%.d=%.o)" $< > $@
+    \end{lstlisting}
+
+\end{frame}
