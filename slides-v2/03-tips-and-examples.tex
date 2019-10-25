@@ -36,6 +36,21 @@ VAR2 = $(VAR2) dont
 
 \end{frame}
 
+\begin{frame}{\secname: \small\subsecname\normalsize}
+    \begin{alertblock}{Attention!}
+        Using variables from the environment can be \textbf{*FUN*}
+    \end{alertblock}
+
+    \begin{itemize}
+        \item Specifying a variable on the command line (e.g., \texttt{make CFLAGS=-DDEBUG}) overrides any and all attributions in the Makefile...
+        \item Unless the variable was defined as \texttt{override CFLAGS := something} in the Makefile...
+        \item Or you used an alias in the Makefile (e.g., \texttt{MYCFLAGS := \$(CFLAGS)})...
+        \item Or the variable was exported (e.g., \texttt{export CFLAGS=-DDEBUG; make}) to the shell.
+    \end{itemize}
+
+    Yeah... \textbf{*FUN*} (\texttt{*grunt*})
+\end{frame}
+
 \defverbatim[colored]\makeObjsFromSrc{
     \begin{lstlisting}[basicstyle=\tiny, language=make]
 SRC := main.c foo.c
